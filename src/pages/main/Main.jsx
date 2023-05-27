@@ -6,7 +6,7 @@ const Main = () => {
         <div className="main-container">
             <section>
                 <Select 
-                    date={Data}
+                    data={Data}
                 />
             </section>
         </div>

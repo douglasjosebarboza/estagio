@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import Value from "../../components/values/Value"
+import Value from "../values/Value"
+import Chart from "../charts/Chart"
 
 const Select = (props) => {
-  let arrayOrgaos = props.date.Orgaos
-  let arrayConvenios = props.date.Convenios
+  let arrayOrgaos = props.data.Orgaos
+  let arrayConvenios = props.data.Convenios
   let arrayConveniosFilter = arrayConvenios
   let totalValorGlobal = 0
   let totalValorRepasse = 0
   let totalValorContrapartida = 0
   let totalValorRendimentos = 0
+  let totalValorGlobalFormat = 0
+  let totalValorRepasseFormat = 0
+  let totalValorContrapartidaFormat = 0
+  let totalValorRendimentosFormat = 0
 
   const [optionSelect, setOptionSelect] = useState('Todos')
   const handleChange = (event) => {
@@ -19,15 +24,20 @@ const Select = (props) => {
     arrayConveniosFilter = arrayConvenios.filter((convenio) => convenio.orgao == optionSelect)
 
   for(let i = 0; i < arrayConveniosFilter.length; i++){
-    let valorAtualGlobal = parseFloat(arrayConveniosFilter[i].valor_global.replace("R$", "").replace(",", ".").replace(".", ""))
-    let valorAtualRepasse = parseFloat(arrayConveniosFilter[i].valor_repasse.replace("R$", "").replace(",", ".").replace(".", ""))
-    let valorAtualContra = parseFloat(arrayConveniosFilter[i].valor_contrapartida.replace("R$", "").replace(",", ".").replace(".", ""))
-    let valorAtualRendimentos = parseFloat(arrayConveniosFilter[i].valor_redimentos.replace("R$", "").replace(",", ".").replace(".", ""))
+    let valorAtualGlobal = parseInt(arrayConveniosFilter[i].valor_global.replace("R$", "").replace(",", ".").replace(".", ""))
+    let valorAtualRepasse = parseInt(arrayConveniosFilter[i].valor_repasse.replace("R$", "").replace(",", ".").replace(".", ""))
+    let valorAtualContra = parseInt(arrayConveniosFilter[i].valor_contrapartida.replace("R$", "").replace(",", ".").replace(".", ""))
+    let valorAtualRendimentos = parseInt(arrayConveniosFilter[i].valor_redimentos.replace("R$", "").replace(",", ".").replace(".", ""))
     totalValorGlobal += valorAtualGlobal
     totalValorRepasse += valorAtualRepasse
     totalValorContrapartida += valorAtualContra
     totalValorRendimentos += valorAtualRendimentos
   }
+
+  totalValorGlobalFormat = totalValorGlobal.toLocaleString("pt-BR")
+  totalValorRepasseFormat = totalValorRepasse.toLocaleString("pt-BR")
+  totalValorContrapartidaFormat = totalValorContrapartida.toLocaleString("pt-BR")
+  totalValorRendimentosFormat = totalValorRendimentos.toLocaleString("pt-BR")
 
    return (
     <div>
@@ -39,35 +49,33 @@ const Select = (props) => {
       </select>
       <p>Valor selecionado: {optionSelect}</p>
       <div>
-        <p></p>
-        <h1>GRÁFICOS</h1>
+        <Chart 
+          data = {arrayConveniosFilter}
+          title = "Série histórica de Valores de Convênios"
+        />
         <div>
             <Value
-              date = {props.date}
               orgao={optionSelect}
               title="Valor Global"
-              value={totalValorGlobal}
+              value={totalValorGlobalFormat}
             />
             <Value
-              date = {props.date}
               orgao={optionSelect}
               title="Valor Repasse"
-              value={totalValorRepasse}
+              value={totalValorRepasseFormat}
             />
             <Value
-              date = {props.date}
               orgao={optionSelect}
               title="Valor contrapartida"
-              value={totalValorContrapartida}
+              value={totalValorContrapartidaFormat}
             />
             <Value
-              date = {props.date}
               orgao={optionSelect}
               title="Valor Rendimentos"
-              value={totalValorRendimentos}
+              value={totalValorRendimentosFormat}
             />
         </div>
-    </div>
+      </div>
     </div>
   )
 }
