@@ -1,0 +1,26 @@
+.container-card-graph-line-1 {
+    width: 55vw;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    justify-content: space-around;
+}
+
+.container-card-graph-line-2 {
+    width: 55vw;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    justify-content: space-around;
+}
+
+.container-card-graph-circle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 35vw;
+    height: 57vh;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+}

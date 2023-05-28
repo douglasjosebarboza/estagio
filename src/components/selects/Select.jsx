@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Value from "../values/Value"
 import Chart from "../charts/Chart"
+import "./select.css"
 
 const Select = (props) => {
   let arrayOrgaos = props.data.Orgaos
@@ -40,20 +41,29 @@ const Select = (props) => {
   totalValorRendimentosFormat = totalValorRendimentos.toLocaleString("pt-BR")
 
    return (
-    <div>
-      <select value={optionSelect} onChange={handleChange}>
+    <div className="container-main">
+      <select className='form-select' value={optionSelect} onChange={handleChange}>
         <option value="Todos">Todos</option>
         {arrayOrgaos.map((orgao, index) => (
           <option key={index} value={orgao}>{orgao}</option>
         ))}
       </select>
-      <p>Valor selecionado: {optionSelect}</p>
-      <div>
-        <Chart 
-          data = {arrayConveniosFilter}
-          title = "Série histórica de Valores de Convênios"
-        />
-        <div>
+
+      <div className='container-graphs-values'>
+        <div className='container-graph-line'>
+          <Chart
+            data = {arrayConveniosFilter}
+            title = "Série histórica de Valores de Convênios"
+            type = {1}
+          />
+          <Chart
+            data = {arrayConveniosFilter}
+            title = "Série histórica de Números de Convênios"
+            type = {2}
+          />
+        </div>
+        <div className="container-values-circle">
+          <div className='container-values'>
             <Value
               orgao={optionSelect}
               title="Valor Global"
@@ -74,6 +84,13 @@ const Select = (props) => {
               title="Valor Rendimentos"
               value={totalValorRendimentosFormat}
             />
+          </div>
+          <div className="container-graph-circle">
+            <Chart
+              data = {arrayConveniosFilter}
+              type = {3}
+            />
+          </div>
         </div>
       </div>
     </div>

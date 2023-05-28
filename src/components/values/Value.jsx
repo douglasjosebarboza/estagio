@@ -1,8 +1,10 @@
+import "./value.css"
+
 const Value = (props) => {
     return (
-    <section className="value-container-values">
-        <h2 className="value-subtitle-values">{props.title}</h2>
-        <p className="value-paragraph-values">R$ {props.value}</p>
+    <section className="container-card-values">
+        <p>{props.title}</p>
+        <h2>R$ {props.value}</h2>
     </section>
 )}
 
