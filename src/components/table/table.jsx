@@ -2,6 +2,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 const Table = (props) => {
+    const getSpanStyle = (situation) => {
+        switch (situation) {
+            case "Em execução":
+                return {backgroundColor: "#007fb1"}
+            case "Proposta/Plano de Trabalho em Análise":
+                return {backgroundColor: "#f1954c"}
+    
+        }
+    }
+
     return (
         <table className="table text-center">
             <thead>
@@ -20,9 +30,9 @@ const Table = (props) => {
                     <td>{data.ano}</td>
                     <td>{data.orgao}</td>
                     <td>
-                        <button type="button" className="btn btn-secondary">
+                        <span className="rounded py-2 px-3 text-white" style={getSpanStyle(data.situacao)}>
                             {data.situacao}
-                        </button>
+                        </span>
                     </td>
                     <td><FontAwesomeIcon icon={faEye} style={{color: "#9097a4",}} /></td>
                 </tr>
