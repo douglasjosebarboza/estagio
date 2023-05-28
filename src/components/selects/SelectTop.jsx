@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import Value from "../values/Value"
 import Chart from "../charts/Chart"
 

@@ -30,6 +30,24 @@ body {
     font-family: Gotham !important;
 }
 
+h2 {
+	color: rgb(0, 56, 75);
+	font-weight: bold !important;
+}
+
+select {
+	font-weight: bold !important;
+	color: #3f3f3f !important;
+}
+
+th {
+	color: #adadad !important;
+}
+
+td, small {
+	color: rgb(60, 76, 82) !important;
+}
+
 .bg {
     background-color: #f4f4f4;
 }

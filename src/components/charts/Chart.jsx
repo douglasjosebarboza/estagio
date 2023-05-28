@@ -65,6 +65,10 @@ const Chart = (props) => {
         plugins: {
             legend: {
                 position: "bottom",
+                labels: {
+                    boxWidth: 12,
+                    boxHeight: 1
+                }
             },
         },
     }
@@ -97,25 +101,21 @@ const Chart = (props) => {
                 label: "Global",
                 data: Object.entries(objValues.Global).map(([key, value]) => value),
                 borderColor: "rgb(0, 100, 132)",
-                backgroundColor: "rgba(0, 100, 132, 0.5)",
             },
             {
                 label: "Repasses",
                 data: Object.entries(objValues.Repasse).map(([key, value]) => value),
                 borderColor: "rgb(255, 100, 0)",
-                backgroundColor: "rgba(255, 100, 0, 0.5)",
             },
             {
                 label: "Contrapartida",
                 data: Object.entries(objValues.Contrapartida).map(([key, value]) => value),
                 borderColor: "rgb(75, 0, 0)",
-                backgroundColor: "rgba(75, 0, 0, 0.5)",
             },
             {
                 label: "Rendimentos",
                 data: Object.entries(objValues.Rendimentos).map(([key, value]) => value),
                 borderColor: "rgb(0, 110, 25)",
-                backgroundColor: "rgba(0, 110, 25, 0.5)",
             },
         ],
     }
@@ -173,7 +173,7 @@ const Chart = (props) => {
                             textAlign: 'center'
                         }}
                         >
-                        {qtdConvenios}
+                        <h2>{qtdConvenios}</h2>
                         </div>
                     </div>
                     

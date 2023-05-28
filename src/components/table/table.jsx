@@ -3,7 +3,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 const Table = (props) => {
     return (
-        <table class="table text-center">
+        <table className="table text-center">
             <thead>
                 <tr>
                     <th scope="col">Número Do Convênio</th>
@@ -20,7 +20,7 @@ const Table = (props) => {
                     <td>{data.ano}</td>
                     <td>{data.orgao}</td>
                     <td>
-                        <button type="button" class="btn btn-secondary d-flex align-items-center gap-3 shadow">
+                        <button type="button" className="btn btn-secondary">
                             {data.situacao}
                         </button>
                     </td>

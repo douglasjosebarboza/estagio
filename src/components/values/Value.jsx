@@ -3,7 +3,7 @@
 const Value = (props) => {
     return (
     <>
-        <p>{props.title}</p>
+        <small className="mt-1 mb-3">{props.title}</small>
         <h2>R$ {props.value}</h2>
     </>
 )}
