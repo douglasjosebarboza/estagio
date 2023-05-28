@@ -1,6 +1,5 @@
 import { Line, Doughnut } from "react-chartjs-2"
 import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, } from "chart.js"
-import "./chart.css"
 
 ChartJS.register(
     ArcElement,
@@ -21,9 +20,9 @@ const Chart = (props) => {
         "Contrapartida":{},
         "Rendimentos":{}
     }
-    let objNumbersConvenios = {
-
-    }
+    let objNumbersConvenios = {}
+    let lastYear = 0
+    let qtdConvenios = 0
 
     for(let i = 0;  i < props.data.length; i++){
         yearCurrent = props.data[i].ano
@@ -44,11 +43,25 @@ const Chart = (props) => {
         objNumbersConvenios[yearCurrent] += 1
     }
     arrayYears.sort((a,b) => a - b)
+    lastYear = arrayYears[arrayYears.length - 1]
+
+    for(let i = 0; i < props.data.length; i++){
+        yearCurrent = props.data[i].ano
+        if(yearCurrent == lastYear)
+            qtdConvenios++
+    }
 
     const labels = arrayYears;
 
     const optionsValues = {
-        responsive: true,
+        scales: {
+            x: {
+                display: true
+            },
+            y: {
+                display: false
+            }
+        },
         plugins: {
             legend: {
                 position: "bottom",
@@ -57,7 +70,14 @@ const Chart = (props) => {
     }
 
     const optionsNumbers = {
-        responsive: true,
+        scales: {
+            x: {
+                display: true
+            },
+            y: {
+                display: false
+            }
+        },
         plugins: {
             legend: {
                 display: false
@@ -66,9 +86,8 @@ const Chart = (props) => {
     }
 
     const optionsArea = {
-        responsive: true,
-        cutout: 100,
-        aspectRatio: 2
+        responsive: false,
+        cutout: 60,
     }
     
     const dataValues = {
@@ -117,7 +136,7 @@ const Chart = (props) => {
           {
             label: "Número de convênios",
             data: [objNumbersConvenios[arrayYears[arrayYears.length - 1]]],
-            backgroundColor: ["rgba(0, 100, 132, 0.5)"],
+            backgroundColor: ["rgb(0, 100, 132)"],
             borderWidth: 0,
           },
         ],
@@ -126,25 +145,39 @@ const Chart = (props) => {
     switch (props.type) {
         case 1:
             return (
-                <section className="container-card-graph-line-1">
+                <>
                     <h2>{props.title}</h2>
-                    <Line options={optionsValues} data={dataValues}></Line>
-                </section>
+                    <Line height={100} options={optionsValues} data={dataValues}></Line>
+                </>
             )
         case 2:
             return (
-                <section className="container-card-graph-line-2">
+                <>
                     <h2>{props.title}</h2>
-                    <Line options={optionsNumbers} data={dataNumbers}></Line>
-                </section>
+                    <Line height={75} options={optionsNumbers} data={dataNumbers}></Line>
+                </>
             )
 
         case 3:
             return (
-                <section className="container-card-graph-circle">
-                    <h2>Total de convênios em {arrayYears[arrayYears.length - 1]}</h2>
-                    <Doughnut data={dataArea} options={optionsArea}></Doughnut>
-                </section>
+                <>
+                    <h2>Total de convênios em {lastYear}</h2>
+                    <div style={{ position: 'relative' }}>
+                        <Doughnut data={dataArea} options={optionsArea}></Doughnut>
+                        <div
+                        style={{
+                            position: 'absolute',
+                            top: '55%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            textAlign: 'center'
+                        }}
+                        >
+                        {qtdConvenios}
+                        </div>
+                    </div>
+                    
+                </>
             )
     }
 }

@@ -1,0 +1,35 @@
+@font-face {
+	font-family: Gotham-Black;
+	src: url('/font/Gotham-Medium.otf')
+}
+
+@font-face {
+	font-family: Gotham-Book;
+	src: url('/font/Gotham-Book.otf')
+}
+
+@font-face {
+	font-family: Gotham;
+	src: url('/font/Gotham-Book.otf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: Gotham;
+	src: url('/font/Gotham-Medium.otf');
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: Gotham;
+	src: url('/font/Gotham-Bold.otf');
+	font-weight: 700;
+}
+
+body {
+    font-family: Gotham !important;
+}
+
+.bg {
+    background-color: #f4f4f4;
+}

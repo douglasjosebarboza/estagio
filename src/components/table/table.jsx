@@ -1,23 +1,30 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+
 const Table = (props) => {
-    return(
-        <table>
+    return (
+        <table class="table text-center">
             <thead>
                 <tr>
-                    <th>Número Do Convênio</th>
-                    <th>Ano</th>
-                    <th>Orgão</th>
-                    <th>Situação</th>
-                    <th></th>
+                    <th scope="col">Número Do Convênio</th>
+                    <th scope="col">Ano</th>
+                    <th scope="col">Orgão</th>
+                    <th scope="col">Situação</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-            {props.data.map((data, index) => (
+                {props.data.map((data, index) => (
                 <tr key={index}>
                     <td>{data.numero_convenio}</td>
                     <td>{data.ano}</td>
                     <td>{data.orgao}</td>
-                    <td>{data.situacao}</td>
-                    <td>ICONE</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary d-flex align-items-center gap-3 shadow">
+                            {data.situacao}
+                        </button>
+                    </td>
+                    <td><FontAwesomeIcon icon={faEye} style={{color: "#9097a4",}} /></td>
                 </tr>
                 ))}
             </tbody>
