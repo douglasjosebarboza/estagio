@@ -140,7 +140,7 @@ const SelectTop = (props) => {
             type = {2}
           />
         </div>
-        <div className="col col-12 col-md-3 d-flex gap-md-5 flex-column justify-content-around align-items-center rounded-3 bg-white shadow">
+        <div className="col col-12 col-md-3 py-3 d-flex gap-md-5 flex-column justify-content-around align-items-center rounded-3 bg-white shadow">
           <Chart
             data = {arrayConveniosFilter}
             type = {3}
