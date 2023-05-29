@@ -30,9 +30,17 @@ body {
     font-family: Gotham !important;
 }
 
-h2 {
+h2, h6 {
 	color: rgb(0, 56, 75);
 	font-weight: bold !important;
+}
+
+h5 {
+	color: rgb(0, 56, 75);
+}
+
+.btn-close {
+	color: rgb(0, 56, 75);
 }
 
 select {

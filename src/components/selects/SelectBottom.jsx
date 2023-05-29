@@ -4,7 +4,7 @@ import { faFileArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { CSVLink } from 'react-csv';
 import * as XLSX from 'xlsx';
 
-import Table from "../table/table"
+import Table from "../table/Table"
 
 const SelectBottom = (props) => {
     let arrayOrgaos = props.data.Orgaos
