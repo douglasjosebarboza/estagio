@@ -75,8 +75,8 @@ const SelectTop = (props) => {
 
    return (
     <>
-      <div className="row">
-        <div className="col col-8">
+      <div className="row pt-3">
+        <div className="col col-12 col-md-8">
           <div className="row d-flex justify-content-center">
             <div className="col col-6 ps-4">
               <select className='form-select' value={orgaoSelect} onChange={handleChangeOrgao}>
@@ -98,14 +98,14 @@ const SelectTop = (props) => {
         </div>
       </div>
       <div className="row d-flex gap-3 justify-content-center">
-        <div className="col col-7 d-flex flex-column gap-5 justify-content-around rounded-3 p-3 bg-white shadow">
+        <div className="col col-12 col-md-7 d-flex flex-column gap-5 justify-content-around rounded-3 p-3 bg-white shadow">
           <Chart
             data = {arrayConveniosFilter}
             title = "Série histórica de Valores de Convênios"
             type = {1}
           />
         </div>
-        <div className="col col-3 gap-3 d-flex flex-column">
+        <div className="col col-12 col-md-3 gap-3 d-flex flex-column">
           <div className="row rounded-3 p-2 bg-white shadow">
             <Value
                 title="Valor Global"
@@ -133,14 +133,14 @@ const SelectTop = (props) => {
       </div>
       </div>
       <div className="row d-flex gap-3 justify-content-center">
-        <div className="col col-7 d-flex flex-column gap-5 justify-content-around rounded-3 p-3 bg-white shadow">
+        <div className="col col-12 col-md-7 d-flex flex-column gap-5 justify-content-around rounded-3 p-3 bg-white shadow">
           <Chart
             data = {arrayConveniosFilter}
             title = "Série histórica de Números de Convênios"
             type = {2}
           />
         </div>
-        <div className="col col-3 d-flex gap-5 flex-column justify-content-around align-items-center rounded-3 bg-white shadow">
+        <div className="col col-12 col-md-3 d-flex gap-md-5 flex-column justify-content-around align-items-center rounded-3 bg-white shadow">
           <Chart
             data = {arrayConveniosFilter}
             type = {3}

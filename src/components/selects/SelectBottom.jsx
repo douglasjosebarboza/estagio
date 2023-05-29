@@ -7,27 +7,50 @@ import Table from "../table/Table"
 const SelectBottom = (props) => {
     let arrayOrgaos = props.data.Orgaos
     let arrayConvenios = props.data.Convenios
+    let arrayDataPage = []
     let arrayDatasFilter = []
     let arrayAuxDatasFilter = []
     let arrayAuxIntDatasFilter = []
     let arrayYears = []
     let arraySituations = props.data.Situacoes
+    let qtdPages = 0
+    let indexStart = 0
+    let indexEnd = 0
+
+    const [numberPage, setNumberPage] = useState(1)
+    const upNumberPage = () => {
+        if(numberPage + 1 <= qtdPages){
+            let newNumberPage = numberPage + 1
+            setNumberPage(newNumberPage)
+        }
+    }
+    const downNumberPage = () => {
+        if(numberPage - 1 > 0){
+            let newNumberPage = numberPage - 1
+            setNumberPage(newNumberPage)
+        }
+    }
 
     const [optionOrgao, setOptionOrgao] = useState("Todos os ministérios")
     const handleChangeOrgao = (event) => {
         setOptionOrgao(event.target.value)
+        setNumberPage(1)
     }
+
     const [optionAno, setOptionAno] = useState("Todos os anos")
     const handleChangeAno = (event) => {
         setOptionAno(event.target.value)
+        setNumberPage(1)
     }
+
     const [optionSituacao, setOptionSituacao] = useState("Todos as situações")
     const handleChangeSituacao = (event) => {
         setOptionSituacao(event.target.value)
+        setNumberPage(1)
     }
     
     if(optionOrgao == "Todos os ministérios" && optionAno == "Todos os anos" && optionSituacao == "Todos as situações")
-    arrayDatasFilter = arrayConvenios
+        arrayDatasFilter = arrayConvenios
     else {
         if(optionOrgao == "Todos os ministérios" && optionAno == "Todos os anos" && optionSituacao != "Todos as situações"){
             for(let i = 0; i < arrayConvenios.length; i++){
@@ -97,6 +120,11 @@ const SelectBottom = (props) => {
         }
     }
 
+    qtdPages = Math.ceil(arrayDatasFilter.length / 3)
+    indexStart = (numberPage - 1) * 3
+    indexEnd = indexStart + 3
+    arrayDataPage = arrayDatasFilter.slice(indexStart, indexEnd)
+
     for(let i = 0; i < arrayConvenios.length; i++){
         if(!arrayYears.includes(arrayConvenios[i].ano))
             arrayYears.push(arrayConvenios[i].ano)
@@ -125,7 +153,7 @@ const SelectBottom = (props) => {
 
     return (
         <>
-            <div className="row d-flex justify-content-center">
+            <div className="row d-none d-md-flex  justify-content-center">
                 <div className="row ps-5">
                     <div className="col">
                         <h2 className="ms-5 ps-5">Listagem de Convênios</h2>
@@ -156,20 +184,31 @@ const SelectBottom = (props) => {
                     </select>
                 </div>
                 <div className="col col-1">
-                    {exportToCSV(arrayDatasFilter)}
+                    {exportToCSV(arrayDataPage)}
                 </div>
             </div>
-            <div className="row d-flex justify-content-center">
+            <div className="row d-none d-md-flex justify-content-center">
                 <div className="col col-10 bg-white rounded-3 p-3 shadow">
                     <Table
-                        data={arrayDatasFilter}
+                        data={arrayDataPage}
                     />
                 </div>
             </div>
-            
+            <div className='row d-none d-md-block  py-5'>
+                <div className="col d-flex gap-2 justify-content-center">
+                    <button type="button" className="btn btn-white border border-secondary-subtle btn-lg rounded-circle" onClick={downNumberPage}>
+                        &laquo;
+                    </button>
+                    <button type="button" className="btn btn-primary btn-lg rounded-circle">
+                        {numberPage}
+                    </button>
+                    <button type="button" className="btn btn-white border border-secondary-subtle btn-lg rounded-circle" onClick={upNumberPage}>
+                        &raquo;
+                    </button>
+                </div>
+            </div>
         </>
     )
 }
-
 
 export default SelectBottom
