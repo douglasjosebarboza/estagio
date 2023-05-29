@@ -4,8 +4,10 @@ import Chart from "../charts/Chart"
 
 const SelectTop = (props) => {
   let arrayOrgaos = props.data.Orgaos
+  let arraySituacoes = props.data.Situacoes
   let arrayConvenios = props.data.Convenios
-  let arrayConveniosFilter = arrayConvenios
+  let arrayConveniosFilter = []
+  let arrayAuxConveniosFilter = []
   let totalValorGlobal = 0
   let totalValorRepasse = 0
   let totalValorContrapartida = 0
@@ -15,13 +17,45 @@ const SelectTop = (props) => {
   let totalValorContrapartidaFormat = 0
   let totalValorRendimentosFormat = 0
 
-  const [optionSelect, setOptionSelect] = useState('Todos')
-  const handleChange = (event) => {
-    setOptionSelect(event.target.value);
+  const [orgaoSelect, setOrgaoSelect] = useState('Todos')
+  const handleChangeOrgao = (event) => {
+    setOrgaoSelect(event.target.value);
   }
 
-  if(optionSelect != "Todos")
-    arrayConveniosFilter = arrayConvenios.filter((convenio) => convenio.orgao == optionSelect)
+  const [situacaoSelect, setsituacaoSelect] = useState('Todos')
+  const handleChangeSituacao = (event) => {
+    setsituacaoSelect(event.target.value);
+  }
+
+  if(orgaoSelect == "Todos" && situacaoSelect == "Todos")
+      arrayConveniosFilter = arrayConvenios
+  else {
+    if(orgaoSelect == "Todos" && situacaoSelect != "Todos"){
+      for(let i = 0; i < arrayConvenios.length; i++){
+        if(arrayConvenios[i].situacao == situacaoSelect)
+          arrayConveniosFilter.push(arrayConvenios[i])
+      }
+    }
+    else if(orgaoSelect != "Todos" && situacaoSelect == "Todos"){
+      for(let i = 0; i < arrayConvenios.length; i++){
+        if(arrayConvenios[i].orgao == orgaoSelect)
+          arrayConveniosFilter.push(arrayConvenios[i])
+      }
+    }
+    else {
+      for(let i = 0; i < arrayConvenios.length; i++){
+        if(arrayConvenios[i].orgao == orgaoSelect){
+          arrayAuxConveniosFilter.push(arrayConvenios[i])
+        }
+      }
+      for(let i = 0; i < arrayAuxConveniosFilter.length; i++){
+        if(arrayAuxConveniosFilter[i].situacao == situacaoSelect)
+          arrayConveniosFilter.push(arrayAuxConveniosFilter[i])
+      }
+      console.log(arrayConveniosFilter)
+    }
+  }
+  
 
   for(let i = 0; i < arrayConveniosFilter.length; i++){
     let valorAtualGlobal = parseInt(arrayConveniosFilter[i].valor_global.replace("R$", "").replace(",", ".").replace(".", ""))
@@ -45,7 +79,7 @@ const SelectTop = (props) => {
         <div className="col col-8">
           <div className="row d-flex justify-content-center">
             <div className="col col-6 ps-4">
-              <select className='form-select' value={optionSelect} onChange={handleChange}>
+              <select className='form-select' value={orgaoSelect} onChange={handleChangeOrgao}>
                   <option value="Todos">Todos</option>
                   {arrayOrgaos.map((orgao, index) => (
                     <option key={index} value={orgao}>{orgao}</option>
@@ -53,9 +87,11 @@ const SelectTop = (props) => {
               </select>
             </div>
             <div className="col col-4">
-              <select className='form-select' value={optionSelect} onChange={handleChange}>
+              <select className='form-select' value={situacaoSelect} onChange={handleChangeSituacao}>
                   <option value="Todos">Todos</option>
-                  <option value="Teste">Teste</option>
+                  {arraySituacoes.map((situacao, index) => (
+                    <option key={index} value={situacao}>{situacao}</option>
+                  ))}
               </select>
             </div>
           </div>
@@ -72,28 +108,24 @@ const SelectTop = (props) => {
         <div className="col col-3 gap-3 d-flex flex-column">
           <div className="row rounded-3 p-2 bg-white shadow">
             <Value
-                orgao={optionSelect}
                 title="Valor Global"
                 value={totalValorGlobalFormat}
             />
           </div>
           <div className="row rounded-3 p-2 bg-white shadow">
             <Value
-                orgao={optionSelect}
                 title="Valor Repasse"
                 value={totalValorRepasseFormat}
             />
           </div>
           <div className="row rounded-3 p-2 bg-white shadow">
             <Value
-                orgao={optionSelect}
                 title="Valor contrapartida"
                 value={totalValorContrapartidaFormat}
             />
           </div>
           <div className="row rounded-3 p-2 bg-white shadow">
             <Value
-                orgao={optionSelect}
                 title="Valor Rendimentos"
                 value={totalValorRendimentosFormat}
             />
