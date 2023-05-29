@@ -52,7 +52,6 @@ const SelectTop = (props) => {
         if(arrayAuxConveniosFilter[i].situacao == situacaoSelect)
           arrayConveniosFilter.push(arrayAuxConveniosFilter[i])
       }
-      console.log(arrayConveniosFilter)
     }
   }
   
